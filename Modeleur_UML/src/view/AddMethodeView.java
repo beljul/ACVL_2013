@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import model.Classe;
+import model.Classifieur;
 import model.DiagrammeClasses;
 import model.Methode;
 import model.Type;
@@ -21,15 +22,15 @@ import model.Visibilite;
 import controller.ClassifieurController;
 
 public class AddMethodeView extends JComponent {
-	private Classe selection;
+	private Classifieur selection;
 	private DiagrammeClasses diagClasses;
-	private JPanel panel;
+//	private JPanel panel;
 	
-	public AddMethodeView(Classe c, DiagrammeClasses dc) {
-		this.selection = c;
+	public AddMethodeView(Classifieur classifieur, DiagrammeClasses dc) {
+		this.selection = classifieur;
 		this.diagClasses = dc;
 		ClassifieurController controler = new ClassifieurController(selection.getView(), selection);
-		panel = new JPanel(new GridLayout(0, 1));
+		JPanel panel = new JPanel(new GridLayout(0, 1));
 		
 		ArrayList<model.Type> types = new ArrayList<model.Type>();
 		for (model.Type t : diagClasses.getEnv().getTypesEnv()) {

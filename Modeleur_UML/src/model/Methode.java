@@ -88,6 +88,14 @@ public class Methode {
 		str += " : " + this.returnType;
 		return str;
 	}
+
+	public void ajouterParametre(Type type, String nom) {
+		parametres.add(new Parametre(nom, type));
+	}
+
+	public void supprimerParametre(Parametre param) {
+		parametres.remove(param);
+	}
 	
 	
 	

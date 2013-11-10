@@ -1,37 +1,33 @@
 package view;
 
 import java.awt.GridLayout;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import model.Attribut;
 import model.Classe;
+import model.Classifieur;
 import model.DiagrammeClasses;
-import model.Visibilite;
+import model.Methode;
 import controller.ClassifieurController;
 
-public class DeleteAttributView {
-	private Classe selection;
+public class DeleteMethodeView {
+	private Classifieur selection;
 	private DiagrammeClasses diagClasses;
 	
-	public DeleteAttributView(Classe c, DiagrammeClasses dc) {
-		this.selection = c;
+	public DeleteMethodeView(Classifieur classifieur, DiagrammeClasses dc) {
+		this.selection = classifieur;
 		this.diagClasses = dc;
 		ClassifieurController controler = new ClassifieurController(selection.getView(), selection);
 		JPanel panel = new JPanel(new GridLayout(0, 1));
 		
-		Classe cl = (Classe) selection;
 		Set<JCheckBox> checkbox = new HashSet<JCheckBox>();
-		for (Attribut att : cl.getAttributs()) {
-			JCheckBox cb = new JCheckBox(att.toString());
+		for (Methode meth : selection.getMethodes()) {
+			JCheckBox cb = new JCheckBox(meth.toString());
 			checkbox.add(cb);
 			panel.add(cb);
 		}
@@ -39,14 +35,14 @@ public class DeleteAttributView {
 	            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 		if (result == JOptionPane.OK_OPTION) {
 			int i = 0;
-			Set<Attribut> attributsToDelete = new HashSet<Attribut>();
+			Set<Methode> methodesToDelete = new HashSet<Methode>();
 			for (JCheckBox jCheckBox : checkbox) {
 				if (jCheckBox.isSelected()) {
-					attributsToDelete.add((Attribut) cl.getAttributs().toArray()[i]);
+					methodesToDelete.add((Methode) classifieur.getMethodes().toArray()[i]);
 				}
 				i++;
 			}
-			controler.supprimetAttributs(attributsToDelete);
+			controler.supprimerMethodes(methodesToDelete);
         } else {
         	// Nothing
         }

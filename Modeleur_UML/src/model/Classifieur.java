@@ -96,4 +96,16 @@ public abstract class Classifieur extends Type {
 		this.methodes.add(m);
 	}
 
+	public void supprimerMethode(Methode methode) {
+		this.methodes.remove(methode);
+	}
+
+	public void ajouterParametre(Type type, String nom, Methode methode) {
+		methode.ajouterParametre(type, nom);
+	}
+
+	public void supprimerParam(Parametre param, Methode methode) {
+		methode.supprimerParametre(param);
+	}
+
 }

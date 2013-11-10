@@ -12,7 +12,9 @@ import javax.swing.JTextArea;
 import view.AddAttributView;
 import view.AddMethodeView;
 import view.DeleteAttributView;
+import view.DeleteMethodeView;
 import view.DiagrammeClassesView;
+import view.SelectMethodeView;
 import model.Classe;
 import model.DiagrammeClasses;
 
@@ -78,13 +80,51 @@ public class DiagrammeClassesController implements  ActionListener {
 		else if (action == "Ajouter méthode") {
 			if (vue.getSelection() != null) {
 //				vue.showAddMethode();
-				new AddMethodeView((Classe)vue.getSelection(), modele);
+				new AddMethodeView(vue.getSelection(), modele);
 				vue.setSelection(null);
 			}
 			else {
 				vue.showError("Impossible d'ajouter une méthode, classe non sélectionnée.");
 			}
 		}
+		else if (action == "Supprimer méthode(s)") {
+			if (vue.getSelection() != null) {
+				new DeleteMethodeView(vue.getSelection(), modele);
+				vue.setSelection(null);			
+			}
+			else {
+				vue.showError("Impossible de supprimer une méthode, classe non sélectionnée.");
+			}
+		}
+		else if (action == "Ajouter paramètre") {
+			if (vue.getSelection() != null) {
+				if (!vue.getSelection().getMethodes().isEmpty()) {
+					new SelectMethodeView(vue.getSelection(), modele, true);
+					vue.setSelection(null);
+				}
+				else {
+					vue.showError("Impossible d'ajouter un paramètre, aucune méthode existante");
+				}
+			}
+			else {
+				vue.showError("Impossible d'ajouter un paramètre, classe non sélectionnée.");
+			}
+		}
+		else if (action == "Supprimer paramètre(s)") {
+			if (vue.getSelection() != null) {
+				if (!vue.getSelection().getMethodes().isEmpty()) {
+					new SelectMethodeView(vue.getSelection(), modele, false);
+					vue.setSelection(null);
+				}
+				else {
+					vue.showError("Impossible de supprimer un paramètre, aucune méthode existante");
+				}
+			}
+			else {
+				vue.showError("Impossible de supprimer un paramètre, classe non sélectionnée.");
+			}
+		}
+		
 		
 	}
 

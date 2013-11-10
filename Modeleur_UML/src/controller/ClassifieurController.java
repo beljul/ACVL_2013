@@ -5,6 +5,8 @@ import java.util.Set;
 import model.Attribut;
 import model.Classe;
 import model.Classifieur;
+import model.Methode;
+import model.Parametre;
 import model.Type;
 import model.Visibilite;
 import view.ClassifieurView;
@@ -51,6 +53,24 @@ public class ClassifieurController {
 		modele.ajouterMethode(visibilite, type, nom, isAbstract, isStatic);
 		this.updateView();	
 	}
-	
+
+	public void supprimerMethodes(Set<Methode> methodesToDelete) {
+		for (Methode methode : methodesToDelete) {
+			modele.supprimerMethode(methode);
+		}
+		this.updateView();
+	}
+
+	public void ajouterParametre(Type type, String nom, Methode methode) {
+		modele.ajouterParametre(type, nom, methode);
+		this.updateView();
+	}
+
+	public void supprimerParametres(Set<Parametre> paramsToDelete, Methode methode) {
+		for (Parametre param : paramsToDelete) {
+			modele.supprimerParam(param, methode);
+		}
+		this.updateView();
+	}
 	
 }

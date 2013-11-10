@@ -73,6 +73,18 @@ public class DiagrammeClassesView extends JFrame implements MouseListener, Mouse
 		mntmSupprimerMethode.addActionListener(this.controleur);
 		mntmTraitementMethodes.add(mntmSupprimerMethode);
 		
+		JMenu mntmTraitementParametres = new JMenu("Traitement paramètres");
+		mntmTraitementMethodes.add(mntmTraitementParametres);
+		JMenuItem mntmAjouterParam = new JMenuItem("Ajouter paramètre");
+		mntmAjouterParam.addActionListener(this.controleur);
+		mntmTraitementParametres.add(mntmAjouterParam);
+		JMenuItem mntmModifierParam = new JMenuItem("Modifier paramètre");
+		mntmModifierParam.addActionListener(this.controleur);
+		mntmTraitementParametres.add(mntmModifierParam);
+		JMenuItem mntmSupprimerParam = new JMenuItem("Supprimer paramètre(s)");
+		mntmSupprimerParam.addActionListener(this.controleur);
+		mntmTraitementParametres.add(mntmSupprimerParam);
+		
         setTitle("Modeleur UML");
         frame.setVisible(true);
 	    frame.addMouseListener(this);

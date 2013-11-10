@@ -15,6 +15,11 @@ public class Parametre {
 	public void setIdentifieur(Identifieur identifieur) {
 		this.identifieur = identifieur;
 	}
+
+	@Override
+	public String toString() {
+		return identifieur.toString();
+	}
 	
 	
 	
