@@ -31,6 +31,7 @@ public class DiagrammeClasses {
 	public void ajouterClasse() {
 		Classe c = new Classe(false);
 		classifieurs.add(c);
+		env.addTypesEnv(c);
 	    view.ajouterClass(c);
 	}
 	

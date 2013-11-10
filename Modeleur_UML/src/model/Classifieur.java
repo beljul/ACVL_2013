@@ -1,12 +1,14 @@
 package model;
 
 import java.awt.Color;
+import java.util.HashSet;
+import java.util.Set;
 
 import view.ClassifieurView;
 
-public abstract class Classifieur {
+public abstract class Classifieur extends Type {
 	private ClassifieurView view;
-
+	private Set<Methode> methodes;
 	boolean isAbstract;
 	private String nom;
 	private int x;
@@ -15,6 +17,12 @@ public abstract class Classifieur {
 	private int width;
 	private Color color = Color.black;
 	
+	
+	public Classifieur() {
+		super();
+		this.methodes = new HashSet<Methode>();
+	}
+
 	public int getX() {
 		return x;
 	}
@@ -72,5 +80,20 @@ public abstract class Classifieur {
 	}
 	
 	public abstract boolean canHaveAttribut();
+
+	
+	public Set<Methode> getMethodes() {
+		return methodes;
+	}
+
+	public void setMethodes(Set<Methode> methodes) {
+		this.methodes = methodes;
+	}
+
+	public void ajouterMethode(Visibilite visibilite, Type type, String nom,
+			boolean isAbstract, boolean isStatic) {
+		Methode m = new Methode(new HashSet<Parametre>(), nom, isStatic, isAbstract, visibilite, type);
+		this.methodes.add(m);
+	}
 
 }

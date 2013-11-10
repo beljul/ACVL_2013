@@ -57,9 +57,21 @@ public class DiagrammeClassesView extends JFrame implements MouseListener, Mouse
 		JMenuItem mntmModifierAttribut = new JMenuItem("Modifier attribut");
 		mntmModifierAttribut.addActionListener(this.controleur);
 		mntmTraitementAttributs.add(mntmModifierAttribut);
-		JMenuItem mntmSupprimerAttribut = new JMenuItem("Supprimer attribut");
+		JMenuItem mntmSupprimerAttribut = new JMenuItem("Supprimer attribut(s)");
 		mntmSupprimerAttribut.addActionListener(this.controleur);
 		mntmTraitementAttributs.add(mntmSupprimerAttribut);
+		
+		JMenu mntmTraitementMethodes = new JMenu("Traitement méthodes");
+		mnClasse.add(mntmTraitementMethodes);
+		JMenuItem mntmAjouterMethode = new JMenuItem("Ajouter méthode");
+		mntmAjouterMethode.addActionListener(this.controleur);
+		mntmTraitementMethodes.add(mntmAjouterMethode);
+		JMenuItem mntmModifierMethode = new JMenuItem("Modifier méthode");
+		mntmModifierMethode.addActionListener(this.controleur);
+		mntmTraitementMethodes.add(mntmModifierMethode);
+		JMenuItem mntmSupprimerMethode = new JMenuItem("Supprimer méthode(s)");
+		mntmSupprimerMethode.addActionListener(this.controleur);
+		mntmTraitementMethodes.add(mntmSupprimerMethode);
 		
         setTitle("Modeleur UML");
         frame.setVisible(true);
@@ -187,58 +199,96 @@ public class DiagrammeClassesView extends JFrame implements MouseListener, Mouse
 		JOptionPane.showMessageDialog(this, s, "An Error Has Occurred", JOptionPane.ERROR_MESSAGE);
 	}
 
-	public void showAddAttribut() {
-		ClassifieurController controler = new ClassifieurController(selection.getView(), selection);
-		JPanel panel = new JPanel(new GridLayout(0, 1));
-		
-		ArrayList<model.Type> types = new ArrayList<model.Type>();
-		for (model.Type t : modele.getEnv().getTypesEnv()) {
-			types.add(t);
-		}
-		JComboBox<String> comboTypes = new JComboBox(types.toArray());
-		JComboBox<String> comboVisib = new JComboBox(Visibilite.values());
-		panel.add(comboTypes);
-		panel.add(comboVisib);
-        JTextField fieldAtt = new JTextField("monAttribut");
-		panel.add(new JLabel("Nom de l'attribut : "));
-		panel.add(fieldAtt);
-		int result = JOptionPane.showConfirmDialog(null, panel, "Ajouter un attribut",
-	            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-		if (result == JOptionPane.OK_OPTION) {
-			controler.ajouterAttribut(Visibilite.values()[comboVisib.getSelectedIndex()], 
-					types.get(comboTypes.getSelectedIndex()), fieldAtt.getText());
-        } else {
-        	// Nothing
-        }
-	}
+//	public void showAddAttribut() {
+//		ClassifieurController controler = new ClassifieurController(selection.getView(), selection);
+//		JPanel panel = new JPanel(new GridLayout(0, 1));
+//		
+//		ArrayList<model.Type> types = new ArrayList<model.Type>();
+//		for (model.Type t : modele.getEnv().getTypesEnv()) {
+//			types.add(t);
+//		}
+//		JComboBox<String> comboTypes = new JComboBox(types.toArray());
+//		JComboBox<String> comboVisib = new JComboBox(Visibilite.values());
+//		panel.add(new JLabel("Sélectionner type : "));
+//		panel.add(comboTypes);
+//		panel.add(new JLabel("Sélectionner visibilité : "));
+//		panel.add(comboVisib);
+//        JTextField fieldAtt = new JTextField("monAttribut");
+//		panel.add(new JLabel("Nom de l'attribut : "));
+//		panel.add(fieldAtt);
+//		int result = JOptionPane.showConfirmDialog(null, panel, "Ajouter un attribut",
+//	            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+//		if (result == JOptionPane.OK_OPTION) {
+//			controler.ajouterAttribut(Visibilite.values()[comboVisib.getSelectedIndex()], 
+//					types.get(comboTypes.getSelectedIndex()), fieldAtt.getText());
+//        } else {
+//        	// Nothing
+//        }
+//	}
 
 
-	public void showDeleteAttribut() {
-		ClassifieurController controler = new ClassifieurController(selection.getView(), selection);
-		JPanel panel = new JPanel(new GridLayout(0, 1));
-		
-		Classe c = (Classe) selection;
-		Set<JCheckBox> checkbox = new HashSet<JCheckBox>();
-		for (Attribut att : c.getAttributs()) {
-			JCheckBox cb = new JCheckBox(att.toString());
-			checkbox.add(cb);
-			panel.add(cb);
-		}
-		int result = JOptionPane.showConfirmDialog(null, panel, "Suppression d'attributs",
-	            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-		if (result == JOptionPane.OK_OPTION) {
-			int i = 0;
-			Set<Attribut> attributsToDelete = new HashSet<Attribut>();
-			for (JCheckBox jCheckBox : checkbox) {
-				if (jCheckBox.isSelected()) {
-					attributsToDelete.add((Attribut) c.getAttributs().toArray()[i]);
-				}
-				i++;
-			}
-			controler.supprimetAttributs(attributsToDelete);
-        } else {
-        	// Nothing
-        }
-	}
+//	public void showDeleteAttribut() {
+//		ClassifieurController controler = new ClassifieurController(selection.getView(), selection);
+//		JPanel panel = new JPanel(new GridLayout(0, 1));
+//		
+//		Classe c = (Classe) selection;
+//		Set<JCheckBox> checkbox = new HashSet<JCheckBox>();
+//		for (Attribut att : c.getAttributs()) {
+//			JCheckBox cb = new JCheckBox(att.toString());
+//			checkbox.add(cb);
+//			panel.add(cb);
+//		}
+//		int result = JOptionPane.showConfirmDialog(null, panel, "Suppression d'attributs",
+//	            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+//		if (result == JOptionPane.OK_OPTION) {
+//			int i = 0;
+//			Set<Attribut> attributsToDelete = new HashSet<Attribut>();
+//			for (JCheckBox jCheckBox : checkbox) {
+//				if (jCheckBox.isSelected()) {
+//					attributsToDelete.add((Attribut) c.getAttributs().toArray()[i]);
+//				}
+//				i++;
+//			}
+//			controler.supprimetAttributs(attributsToDelete);
+//        } else {
+//        	// Nothing
+//        }
+//	}
+
+
+//	public void showAddMethode() {
+//		ClassifieurController controler = new ClassifieurController(selection.getView(), selection);
+//		JPanel panel = new JPanel(new GridLayout(0, 1));
+//		
+//		ArrayList<model.Type> types = new ArrayList<model.Type>();
+//		for (model.Type t : modele.getEnv().getTypesEnv()) {
+//			types.add(t);
+//		}
+//		JComboBox<String> comboTypes = new JComboBox(types.toArray());
+//		JComboBox<String> comboVisib = new JComboBox(Visibilite.values());
+//		comboTypes.setToolTipText("");
+//		panel.add(new JLabel("Sélectionner type de retour : "));
+//		panel.add(comboTypes);
+//		panel.add(new JLabel("Sélectionner visibilité : "));
+//		panel.add(comboVisib);
+//        JTextField fieldAtt = new JTextField("maMethode");
+//		panel.add(new JLabel("Nom de la méthode : "));
+//		panel.add(fieldAtt);
+//		JCheckBox isAbstract = new JCheckBox("est abstraite");
+//		JCheckBox isStatic = new JCheckBox("est statique");
+//		panel.add(isAbstract);
+//		panel.add(isStatic);
+//		JButton addParam = new JButton("Ajouter un paramètre");
+//		panel.add(addParam);
+////		addParam.addActionListener(this);
+//		int result = JOptionPane.showConfirmDialog(null, panel, "Ajouter une méthode",
+//	            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+//		if (result == JOptionPane.OK_OPTION) {
+//			
+//        } else {
+//        	// Nothing
+//        }
+//		
+//	}
 	
 }

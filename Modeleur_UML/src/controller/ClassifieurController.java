@@ -45,6 +45,12 @@ public class ClassifieurController {
 		this.updateView();
 		
 	}
+
+	public void ajouterMethode(Visibilite visibilite, Type type, String nom,
+			boolean isAbstract, boolean isStatic) {
+		modele.ajouterMethode(visibilite, type, nom, isAbstract, isStatic);
+		this.updateView();	
+	}
 	
 	
 }

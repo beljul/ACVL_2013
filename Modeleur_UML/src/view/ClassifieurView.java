@@ -21,6 +21,7 @@ import controller.ClassifieurController;
 import model.Classe;
 import model.Classifieur;
 import model.Attribut;
+import model.Methode;
 import model.Visibilite;
 
 
@@ -61,13 +62,16 @@ public class ClassifieurView extends JComponent {
 	public void paintComponent(Graphics g){
 //		super.paintComponent(g);
 	    g.drawString(modele.getNom(), modele.getX() + (modele.getWidth()/4), modele.getY()+12);
+    	int i = 1;
 	    if(modele.canHaveAttribut()) {
 	    	Classe c = (Classe)modele;
-	    	int i = 1;
 	    	if (c.getAttributs() != null)
 			    for (Attribut att : c.getAttributs()) {
 					g.drawString(att.toString(), modele.getX() + 2, modele.getY() + 12*(++i));
 				}
+	    }
+	    for(Methode meth : modele.getMethodes()) {
+	    	g.drawString(meth.toString(), modele.getX() + 2, modele.getY() + 12*(++i));
 	    }
 		g.setColor(modele.getColor());
 	    g.drawRect(modele.getX(), modele.getY(), modele.getWidth(), modele.getHeight());

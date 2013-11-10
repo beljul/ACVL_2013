@@ -9,6 +9,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import view.AddAttributView;
+import view.AddMethodeView;
+import view.DeleteAttributView;
 import view.DiagrammeClassesView;
 import model.Classe;
 import model.DiagrammeClasses;
@@ -26,18 +29,25 @@ public class DiagrammeClassesController implements  ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String action = e.getActionCommand();
+			
 		if (action == "Ajouter classe") {
 			modele.ajouterClasse();
 		}
 		else if (action == "Modifier classe") {
 		}
 		else if (action == "Supprimer classe") {
-			modele.supprimerClasse(vue.getSelection());
+			if (vue.getSelection() != null) {
+				modele.supprimerClasse(vue.getSelection());
+			}
+			else {
+				vue.showError("Impossible de supprimer une classe, classe non sélectionnée.");
+			}
 		}
 		else if (action == "Ajouter attribut") {
 			if (vue.getSelection() != null) {
 				if (vue.getSelection().canHaveAttribut()) {
-					vue.showAddAttribut();
+					new AddAttributView((Classe)vue.getSelection(), modele);
+//					vue.showAddAttribut();
 					vue.setSelection(null);
 				}
 				else
@@ -51,10 +61,11 @@ public class DiagrammeClassesController implements  ActionListener {
 		else if (action == "Modifier attribut") {
 			
 		}
-		else if (action == "Supprimer attribut") {
+		else if (action == "Supprimer attribut(s)") {
 			if (vue.getSelection() != null) {
 				if (vue.getSelection().canHaveAttribut()) {
-					vue.showDeleteAttribut();
+					new DeleteAttributView((Classe)vue.getSelection(), modele);
+//					vue.showDeleteAttribut();
 					vue.setSelection(null);
 				}
 				else
@@ -62,6 +73,16 @@ public class DiagrammeClassesController implements  ActionListener {
 			}
 			else {
 				vue.showError("Impossible de supprimer un attribut, classe non sélectionnée.");
+			}
+		}
+		else if (action == "Ajouter méthode") {
+			if (vue.getSelection() != null) {
+//				vue.showAddMethode();
+				new AddMethodeView((Classe)vue.getSelection(), modele);
+				vue.setSelection(null);
+			}
+			else {
+				vue.showError("Impossible d'ajouter une méthode, classe non sélectionnée.");
 			}
 		}
 		

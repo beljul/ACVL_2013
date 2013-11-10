@@ -20,6 +20,10 @@ public class Identifieur {
 	public void setType(Type type) {
 		this.type = type;
 	}
+	@Override
+	public String toString() {
+		return this.nom + " : " + this.type;
+	}
 	
 	
 }

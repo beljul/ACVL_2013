@@ -1,13 +1,14 @@
 package model;
 
-public class Attribut extends Identifieur {
+public class Attribut {
+	private Identifieur identifieur;
 	private String valeur;
 	private boolean estCalcule;
 	
 	private Visibilite visibilite;
 	
 	public Attribut(Visibilite visibilite, Type type, String nom) {
-		super(type, nom);
+		identifieur = new Identifieur(type, nom);
 		this.visibilite = visibilite;
 	}
 	public String getValeur() {
@@ -29,8 +30,14 @@ public class Attribut extends Identifieur {
 		this.visibilite = visibilite;
 	}
 	
+	public Identifieur getIdentifieur() {
+		return identifieur;
+	}
+	public void setIdentifieur(Identifieur identifieur) {
+		this.identifieur = identifieur;
+	}
 	@Override
 	public String toString() {
-		return this.getVisibilite().getMotif() + " "+ this.getNom() + " : " + this.getType();
+		return this.visibilite.getMotif() + " " + this.identifieur.toString();
 	}
 }
