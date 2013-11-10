@@ -70,4 +70,7 @@ public abstract class Classifieur {
 	public void setView(ClassifieurView view) {
 		this.view = view;
 	}
+	
+	public abstract boolean canHaveAttribut();
+
 }

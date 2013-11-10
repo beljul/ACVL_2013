@@ -12,10 +12,20 @@ import view.DiagrammeClassesView;
 public class DiagrammeClasses {
 	private Set<Classifieur> classifieurs;
 	private static DiagrammeClassesView view;
-	
-	public DiagrammeClasses() {
+	private Environnement env;
+
+	public DiagrammeClasses(Environnement environnement) {
 		super();
 		this.classifieurs = new HashSet<Classifieur>();
+		this.env = environnement;
+	}
+	
+	public static DiagrammeClassesView getView() {
+		return view;
+	}
+
+	public static void setView(DiagrammeClassesView view) {
+		DiagrammeClasses.view = view;
 	}
 	
 	public void ajouterClasse() {
@@ -28,17 +38,21 @@ public class DiagrammeClasses {
 		System.out.println("Modif de la classe : " + c.getNom());
 	}
 	
-	public void supprimerClasse(Classe c) {
-		System.out.println("Suppression de la classe : " + c.getNom());
+	public void supprimerClasse(Classifieur classifieur) {
+		classifieurs.remove(classifieur);
+		view.supprimerClass(classifieur);
 	}
 	
 	public Set<Classifieur> getClassifieurs () {
 		return this.classifieurs;
 	}
-	public static void main(String args[])
-    {
-        DiagrammeClasses modele = new DiagrammeClasses();
-		view = new DiagrammeClassesView(modele);
-    }
+	
+	public Environnement getEnv() {
+		return env;
+	}
+
+	public void setEnv(Environnement env) {
+		this.env = env;
+	}
 	
 }
