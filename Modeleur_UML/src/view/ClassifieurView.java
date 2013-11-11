@@ -73,9 +73,9 @@ public class ClassifieurView extends JComponent {
 	    for(Methode meth : modele.getMethodes()) {
 	    	g.drawString(meth.toString(), modele.getX() + 2, modele.getY() + 12*(++i));
 	    }
-		g.setColor(modele.getColor());
+	    g.setColor(modele.getColor());
 	    g.drawRect(modele.getX(), modele.getY(), modele.getWidth(), modele.getHeight());
-	    modele.setColor(Color.black);
+    	modele.setColor(Color.black);
 	    this.setVisible(true);
 	}
 	

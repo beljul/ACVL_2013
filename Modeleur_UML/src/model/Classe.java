@@ -7,11 +7,13 @@ public class Classe extends Classifieur {
 
 	private static int nb = 0;
 	private Set<Attribut> attributs;
-
+	private Set<Multiplicite> multiplicites;
+	
 	public Classe(boolean isAbstract) {
 		super();
 		++nb;
 		attributs = new HashSet<Attribut>();
+		multiplicites = new HashSet<Multiplicite>();
 		this.setNom((isAbstract) ? "Default Abstract Class" : "Default Class" + nb);
 	}
 	
@@ -32,5 +34,9 @@ public class Classe extends Classifieur {
 	@Override
 	public boolean canHaveAttribut() {
 		return true;
+	}
+	
+	public Set<Multiplicite> getMultiplicites() {
+		return multiplicites;
 	}
 }

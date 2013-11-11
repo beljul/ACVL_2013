@@ -108,4 +108,5 @@ public abstract class Classifieur extends Type {
 		methode.supprimerParametre(param);
 	}
 
+
 }

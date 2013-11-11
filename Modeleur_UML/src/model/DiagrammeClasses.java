@@ -11,12 +11,14 @@ import view.DiagrammeClassesView;
 
 public class DiagrammeClasses {
 	private Set<Classifieur> classifieurs;
+	private Set<Lien> liens;
 	private static DiagrammeClassesView view;
 	private Environnement env;
 
 	public DiagrammeClasses(Environnement environnement) {
 		super();
 		this.classifieurs = new HashSet<Classifieur>();
+		this.liens = new HashSet<Lien>();
 		this.env = environnement;
 	}
 	
@@ -30,7 +32,7 @@ public class DiagrammeClasses {
 	
 	public void ajouterClasse() {
 		Classe c = new Classe(false);
-		classifieurs.add(c);
+		this.classifieurs.add(c);
 		env.addTypesEnv(c);
 	    view.ajouterClass(c);
 	}
@@ -40,7 +42,14 @@ public class DiagrammeClasses {
 	}
 	
 	public void supprimerClasse(Classifieur classifieur) {
-		classifieurs.remove(classifieur);
+		if (classifieur.canHaveAttribut()) {
+			Classe c = (Classe) classifieur;
+			for (Multiplicite mult : c.getMultiplicites()) {
+				this.liens.remove(mult.getLien());
+				view.supprimerLien(mult.getLien());
+			}
+		}
+		this.classifieurs.remove(classifieur);
 		view.supprimerClass(classifieur);
 	}
 	
@@ -55,5 +64,17 @@ public class DiagrammeClasses {
 	public void setEnv(Environnement env) {
 		this.env = env;
 	}
+
+	public Set<Lien> getLiens() {
+		return liens;
+	}
+
+	public void ajouterLienAssociationSimple(Classifieur selection,
+			Classifieur secondSelection) {
+		AssociationSimple as = new AssociationSimple((Classe)selection, (Classe)secondSelection);
+		liens.add(as);
+		view.ajouterLienAssociationSimple(as);
+	}
+	
 	
 }
