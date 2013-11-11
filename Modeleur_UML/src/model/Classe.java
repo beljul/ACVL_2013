@@ -39,4 +39,11 @@ public class Classe extends Classifieur {
 	public Set<Multiplicite> getMultiplicites() {
 		return multiplicites;
 	}
+
+	public void supprimerMultiplicites(Set<Multiplicite> multToDelete) {
+		for (Multiplicite m : multToDelete) {
+			multiplicites.remove(m);
+		}
+		
+	}
 }

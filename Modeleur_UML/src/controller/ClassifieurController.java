@@ -5,7 +5,9 @@ import java.util.Set;
 import model.Attribut;
 import model.Classe;
 import model.Classifieur;
+import model.LienMultiple;
 import model.Methode;
+import model.Multiplicite;
 import model.Parametre;
 import model.Type;
 import model.Visibilite;
@@ -71,6 +73,11 @@ public class ClassifieurController {
 			modele.supprimerParam(param, methode);
 		}
 		this.updateView();
+	}
+
+	public void supprimerMultiplicites(Set<Multiplicite> multToDelete) {
+		Classe c = (Classe) modele;
+		c.supprimerMultiplicites(multToDelete);
 	}
 	
 }

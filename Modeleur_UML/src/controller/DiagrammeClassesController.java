@@ -14,9 +14,11 @@ import view.AddMethodeView;
 import view.DeleteAttributView;
 import view.DeleteMethodeView;
 import view.DiagrammeClassesView;
+import view.SelectLinksView;
 import view.SelectMethodeView;
 import model.Classe;
 import model.DiagrammeClasses;
+import model.LienMultiple;
 
 public class DiagrammeClassesController implements  ActionListener {
 	
@@ -135,8 +137,24 @@ public class DiagrammeClassesController implements  ActionListener {
 				vue.showError("Impossible d'ajouter un lien, vous devez sélectionner deux classes.");
 			}
 		}
+		else if (action == "Supprimer lien(s)") {
+			if(vue.getSelection() != null && vue.getSecondSelection() != null) {
+				if(vue.getSelection().canHaveAttribut() && vue.getSecondSelection().canHaveAttribut())
+					new SelectLinksView(vue.getSelection(), vue.getSecondSelection(), modele);
+//					modele.supprimerLiens(vue.getSelection(), vue.getSecondSelection());
+				else
+					vue.showError("Impossible de supprimer des lien(s), ceci n'est ou ne sont pas des classes.");
+			}
+			else {
+				vue.showError("Impossible de supprimer des lien(s), vous devez sélectionner deux classes.");
+			}
+		}
 		
 		
+	}
+
+	public void supprimerLiens(Set<LienMultiple> linksToDelete) {
+		modele.supprimerLiens(linksToDelete);
 	}
 
 }

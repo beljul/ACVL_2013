@@ -104,6 +104,9 @@ public class DiagrammeClassesView extends JFrame implements MouseListener, Mouse
 		JMenuItem mntmAjouterAssociationSimple = new JMenuItem("Ajouter lien d'association simple");
 		mntmAjouterAssociationSimple.addActionListener(this.controleur);
 		mntmLienAssociationSimple.add(mntmAjouterAssociationSimple);
+		JMenuItem mntmSupprimerLien= new JMenuItem("Supprimer lien(s)");
+		mntmSupprimerLien.addActionListener(this.controleur);
+		mnLien.add(mntmSupprimerLien);
 		
         setTitle("Modeleur UML");
         frame.pack();

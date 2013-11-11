@@ -75,6 +75,16 @@ public class DiagrammeClasses {
 		liens.add(as);
 		view.ajouterLienAssociationSimple(as);
 	}
+
+	public void supprimerLiens(Set<LienMultiple> linksToDelete) {
+		for (LienMultiple lienMultiple : linksToDelete) {
+			this.liens.remove(lienMultiple);
+			view.supprimerLien(lienMultiple);
+			lienMultiple = null;
+		}
+		
+	}
+
 	
 	
 }

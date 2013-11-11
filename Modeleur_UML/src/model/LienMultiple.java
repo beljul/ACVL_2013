@@ -32,4 +32,19 @@ public abstract class LienMultiple extends Lien {
 	public void setView(LienAssociationSimpleView view) {
 		this.view = view;
 	}
+
+	@Override
+	public String toString() {
+		String str = "Lien entre ";
+		for (Multiplicite mult : this.multiplicites) {
+			str += mult.getClasse().toString() + " et ";
+		}
+		str = str.substring(0, str.length()-4);
+		if (this.nomRelation != null) {
+			str += " : " + this.nomRelation;
+		}
+		return str;
+	}
+	
+	
 }
