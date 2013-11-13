@@ -163,8 +163,8 @@ public class DiagrammeClassesView extends JFrame implements MouseListener, Mouse
 //                    System.out.println(c.getWidth());
 //                    System.out.println(e.getX() + " < " + c.getX()+c.getWidth());
 //                    System.out.println(e.getY() + " < " + c.getY()+c.getHeight());
-                    if(e.getX() > c.getX() && e.getX() < c.getX() + c.getWidth()
-                                    && e.getY() > c.getY() && e.getY() < c.getY() + c.getHeight() ) {
+                    if(e.getX() - 10 > c.getX() && e.getX() - 10 < c.getX() + c.getWidth()
+                                    && e.getY() - 50 > c.getY() && e.getY() - 50 < c.getY() + c.getHeight() ) {
                             if(selection!=null)
                             	selection.setColor(Color.red);
                             if(secondSelection!=null)
@@ -199,8 +199,11 @@ public class DiagrammeClassesView extends JFrame implements MouseListener, Mouse
 	@Override
 	public void mousePressed(MouseEvent e) {
 		for (Classifieur c : modele.getClassifieurs()) {
-			if(e.getX() > c.getX() && e.getX() < c.getX() + c.getWidth()
-					&& e.getY() > c.getY() && e.getY() < c.getY() + c.getHeight() ) {
+			System.out.println("x= " + c.getX() + "; y= "+ c.getY());
+			System.out.println("xSouris= " + (e.getX()-10) + "; ySouris= "+ (e.getY()-50));
+			System.out.println("Largeur= " + c.getWidth() + "; Hauteur= " + c.getHeight());
+			if(e.getX() - 10 > c.getX() && e.getX() - 10 < c.getX() + c.getWidth()
+					&& e.getY() - 50 > c.getY() && e.getY() - 50  < c.getY() + c.getHeight() ) {
 				if(!ctrlIsPressed) {
 					selection = c;
 					secondSelection = null;
