@@ -24,6 +24,7 @@ import model.Classe;
 import model.Classifieur;
 import model.DiagrammeClasses;
 import model.LienMultiple;
+import model.LinkPosOnClass;
 import model.Multiplicite;
 import model.Visibilite;
 import controller.ClassifieurController;
@@ -105,6 +106,9 @@ public class DiagrammeClassesView extends JFrame implements MouseListener, Mouse
 		JMenuItem mntmAjouterAssociationSimple = new JMenuItem("Ajouter lien d'association simple");
 		mntmAjouterAssociationSimple.addActionListener(this.controleur);
 		mntmLienAssociationSimple.add(mntmAjouterAssociationSimple);
+		JMenuItem mntmModifierLien= new JMenuItem("Modifier multiplicités/rôles");
+		mntmModifierLien.addActionListener(this.controleur);
+		mnLien.add(mntmModifierLien);
 		JMenuItem mntmSupprimerLien= new JMenuItem("Supprimer lien(s)");
 		mntmSupprimerLien.addActionListener(this.controleur);
 		mnLien.add(mntmSupprimerLien);
@@ -240,18 +244,63 @@ public class DiagrammeClassesView extends JFrame implements MouseListener, Mouse
 		if (selection != null) {
 			int xInit = selection.getX();
 			int yInit = selection.getY();
+			Point pInit = new Point(xInit, yInit);
+			Point pCur = new Point(e.getX(), e.getY());
 			selection.setX(e.getX());
 			selection.setY(e.getY());
 			if(selection.canHaveAttribut()) {
 				Classe c = (Classe)selection;
 				for (Multiplicite mult : c.getMultiplicites()) {
-					if(xInit == mult.getLien().getP1().getX() && yInit == mult.getLien().getP1().getY())
-						mult.getLien().setP1(new Point(e.getX(), e.getY()));
-					else
-						mult.getLien().setP2(new Point(e.getX(), e.getY()));
+					Point p = new Point();
+
+					if(mult.getpMult().getX() == mult.getLien().getP1().getX() && mult.getpMult().getY() == mult.getLien().getP1().getY()
+							&& mult.getClasse().getNom().equals(c.getNom())) {
+						switch (mult.getPosLink()) {
+						case BOTTOM:
+							p = new Point(e.getX() + c.getWidth()/2, e.getY() + c.getHeight());
+							break;
+						case TOP:
+							p = new Point(e.getX() + c.getWidth()/2, e.getY());
+							break;
+						case LEFT:
+							p = new Point(e.getX(), e.getY() + c.getHeight()/2);
+							break;
+						case RIGHT:
+							p = new Point(e.getX() + c.getWidth(), e.getY() + c.getHeight()/2);
+							break;
+						default:
+							break;
+						}
+						mult.getLien().setP1(p);
+					}
+					else {
+						switch (mult.getPosLink()) {
+						case BOTTOM:
+							p = new Point(e.getX() + c.getWidth()/2, e.getY() + c.getHeight());
+							break;
+						case TOP:
+							p = new Point(e.getX() + c.getWidth()/2, e.getY());
+							break;
+						case LEFT:
+							p = new Point(e.getX(), e.getY() + c.getHeight()/2);
+							break;
+						case RIGHT:
+							p = new Point(e.getX() + c.getWidth(), e.getY() + c.getHeight()/2);
+							break;
+						default:
+						break;
+						}
+						mult.getLien().setP2(p);				
+					}
+					mult.setpMult(p);
+					for (Multiplicite multi : mult.getLien().getMultiplicites()) {
+						multi.getClasse().getView().getControleur().updateView();
+					}
+					mult.getLien().getView().getControleur().updateView();
 				}
 			}
 			selection.getView().getControleur().updateView();
+			
 		}
 		
 	}

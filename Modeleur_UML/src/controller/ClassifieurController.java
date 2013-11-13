@@ -103,5 +103,11 @@ public class ClassifieurController {
 		this.updateView();
 	}
 
+	public void modifierMultiplicite(char borneInf, char borneSup, String role, Multiplicite multiplicite) {
+		Classe c = (Classe) modele;
+		c.modifierMultiplicite(borneInf, borneSup, role, multiplicite);
+		this.updateView();
+	}
+
 	
 }

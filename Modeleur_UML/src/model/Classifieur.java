@@ -1,6 +1,8 @@
 package model;
 
 import java.awt.Color;
+import java.awt.Point;
+import java.nio.file.LinkOption;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,14 +11,13 @@ import view.ClassifieurView;
 public abstract class Classifieur extends Type {
 	private ClassifieurView view;
 	private Set<Methode> methodes;
-	boolean isAbstract;
+	private boolean isAbstract;
 	private String nom;
 	private int x;
 	private int y;
 	private int height;
 	private int width;
 	private Color color = Color.black;
-	
 	
 	public Classifieur() {
 		super();

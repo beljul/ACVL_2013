@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Point;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,6 +9,7 @@ public class Classe extends Classifieur {
 	private static int nb = 0;
 	private Set<Attribut> attributs;
 	private Set<Multiplicite> multiplicites;
+
 	
 	public Classe(boolean isAbstract) {
 		super();
@@ -51,4 +53,11 @@ public class Classe extends Classifieur {
 		}
 		
 	}
+
+	public void modifierMultiplicite(char borneInf, char borneSup, String role, Multiplicite multiplicite) {
+		multiplicite.setBorneInf(borneInf);
+		multiplicite.setBorneSup(borneSup);
+		multiplicite.setRole(role);
+	}
+
 }

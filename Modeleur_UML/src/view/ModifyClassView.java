@@ -14,6 +14,7 @@ import model.Classifieur;
 import model.DiagrammeClasses;
 import model.Visibilite;
 import controller.ClassifieurController;
+import controller.DiagrammeClassesController;
 
 public class ModifyClassView {
 	private Classifieur selection;
@@ -31,7 +32,15 @@ public class ModifyClassView {
 		int result = JOptionPane.showConfirmDialog(null, panel, "Modifier " + c.toString(),
 	            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 		if (result == JOptionPane.OK_OPTION) {
-			controler.modifierClasse(fieldName.getText());
+			boolean exists = false;
+			for (model.Type type : dc.getEnv().getTypesEnv()) {
+				if(type.getNom().equals(fieldName.getText())) {
+					dc.getView().showError("Impossible de modifier la classe " + type.getNom() + ". Celle-ci existe déjà");
+					exists = true;
+				}
+			}
+			if (!exists)
+				controler.modifierClasse(fieldName.getText());
         } else {
         	// Nothing
         }

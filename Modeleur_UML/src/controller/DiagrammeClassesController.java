@@ -177,6 +177,17 @@ public class DiagrammeClassesController implements  ActionListener {
 				vue.showError("Impossible d'ajouter un lien, vous devez sélectionner deux classes.");
 			}
 		}
+		else if (action == "Modifier multiplicités/rôles") {
+			if(vue.getSelection() != null) {
+				if(vue.getSelection().canHaveAttribut() && vue.getSecondSelection().canHaveAttribut())
+					new SelectLinkView(vue.getSelection(), vue.getSecondSelection(), modele);
+				else
+					vue.showError("Impossible de modifier les multiplicités/rôles, ceci n'est ou ne sont pas des classes.");
+			}
+			else {
+				vue.showError("Impossible de modifier les multiplicités/rôles, vous devez sélectionner deux classes.");
+			}
+		}
 		else if (action == "Supprimer lien(s)") {
 			if(vue.getSelection() != null && vue.getSecondSelection() != null) {
 				if(vue.getSelection().canHaveAttribut() && vue.getSecondSelection().canHaveAttribut())

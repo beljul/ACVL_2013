@@ -1,11 +1,15 @@
 package model;
 
+import java.awt.Point;
+
 public class Multiplicite {
 	private Classe classe;
 	private LienMultiple lien;
 	private char borneInf;
 	private char borneSup;
 	private String role;
+	private Point pMult;
+	private LinkPosOnClass posLink;
 	
 	public Multiplicite(Classe classe, LienMultiple lien) {
 		super();
@@ -32,6 +36,23 @@ public class Multiplicite {
 		this.lien = lien;
 	}
 
+	public LinkPosOnClass getPosLink() {
+		return posLink;
+	}
+
+	public void setPosLink(LinkPosOnClass posLink) {
+		this.posLink = posLink;
+	}
+	
+
+	public Point getpMult() {
+		return pMult;
+	}
+
+	public void setpMult(Point pMult) {
+		this.pMult = pMult;
+	}
+	
 	public char getBorneInf() {
 		return borneInf;
 	}
