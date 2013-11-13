@@ -1,43 +1,47 @@
 package view;
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JTextField;
 
+import model.Attribut;
 import model.Classe;
-import model.Classifieur;
 import model.DiagrammeClasses;
 import model.Methode;
+import model.Visibilite;
 import controller.ClassifieurController;
 
-public class SelectMethodeView {
-	private Classifieur selection;
+public class SelectAttributView {
+	private Classe selection;
 	private DiagrammeClasses diagClasses;
 	
-	public SelectMethodeView(Classifieur classifieur, DiagrammeClasses dc, boolean isAdding, boolean isModify) {
-		this.selection = classifieur;
+	public SelectAttributView(Classe c, DiagrammeClasses dc) {
+		this.selection = c;
 		this.diagClasses = dc;
 		ClassifieurController controler = new ClassifieurController(selection.getView(), selection);
 		JPanel panel = new JPanel(new GridLayout(0, 1));
+		
 		ButtonGroup group = new ButtonGroup();
 		Set<JRadioButton> radioButtons = new HashSet<JRadioButton>();
-		for (Methode meth : selection.getMethodes()) {
-			JRadioButton rb = new JRadioButton(meth.toString());
+		for (Attribut att : selection.getAttributs()) {
+			JRadioButton rb = new JRadioButton(att.toString());
 			radioButtons.add(rb);
 			group.add(rb);
 			panel.add(rb);
 		}
-		int result = JOptionPane.showConfirmDialog(null, panel, "Sélection d'une méthode",
+		int result = JOptionPane.showConfirmDialog(null, panel, "Sélection d'un attribut",
 	            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 		if (result == JOptionPane.OK_OPTION) {
 			int i = 0;
@@ -47,18 +51,8 @@ public class SelectMethodeView {
 				if (b.isSelected()) break;
 				i++;
 			}
-			if(isAdding) {
-				if(!isModify)
-					new AjouterParamView(selection, diagClasses, (Methode)selection.getMethodes().toArray()[i]);
-				else
-					new SelectParamView(selection, diagClasses, (Methode)selection.getMethodes().toArray()[i]);
-			}
-			else { // Deleting
-				if(!isModify)
-					new SupprimerParamView(selection, diagClasses, (Methode)selection.getMethodes().toArray()[i]);
-				else
-					new ModifyMethodeView(selection, diagClasses, (Methode)selection.getMethodes().toArray()[i]);
-			}
+	//			controler.ajouterParametre(selection.getMethodes().toArray()[i]);
+				new ModifyAttributView(selection, diagClasses, (Attribut)selection.getAttributs().toArray()[i]);
         } else {
         	// Nothing
         }

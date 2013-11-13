@@ -41,6 +41,12 @@ public class ClassifieurController {
 		this.updateView();
 	}
 
+	public void modifierAttribut(Visibilite visibilite, Type type, String nom, Attribut att) {
+		Classe c = (Classe) modele;
+		c.modifierAttribut(visibilite, type, nom, att);
+		this.updateView();
+	}
+	
 	public void supprimetAttributs(Set<Attribut> attributsToDelete) {
 		Classe c = (Classe) modele;
 		for (Attribut attribut : attributsToDelete) {
@@ -62,6 +68,7 @@ public class ClassifieurController {
 		}
 		this.updateView();
 	}
+	
 
 	public void ajouterParametre(Type type, String nom, Methode methode) {
 		modele.ajouterParametre(type, nom, methode);
@@ -79,5 +86,22 @@ public class ClassifieurController {
 		Classe c = (Classe) modele;
 		c.supprimerMultiplicites(multToDelete);
 	}
+
+	public void modifierClasse(String text) {
+		modele.modifierClasse(text);
+		this.updateView();
+	}
+
+	public void modifierMethode(Visibilite visibilite, Type type, String text,
+			boolean isAbstract, boolean isStatic, Methode methode) {
+		modele.modifierMethode(visibilite, type, text, isAbstract, isStatic, methode);
+		this.updateView();
+	}
+
+	public void modifierParametre(Type type, String text, Methode m, Parametre param) {
+		modele.modifierParametre(type, text, m, param);
+		this.updateView();
+	}
+
 	
 }

@@ -108,5 +108,22 @@ public abstract class Classifieur extends Type {
 		methode.supprimerParametre(param);
 	}
 
+	public void modifierClasse(String text) {
+		this.nom = text;
+	}
+
+	public void modifierMethode(Visibilite visibilite, Type type, String text,
+			boolean isAbstract, boolean isStatic, Methode methode) {
+		methode.setNom(text);
+		methode.setVisibilite(visibilite);
+		methode.setReturnType(type);
+		methode.setStatic(isStatic);
+		methode.setAbstract(isAbstract);
+	}
+
+	public void modifierParametre(Type type, String text, Methode m, Parametre param) {
+		m.modifierParametre(type, text, param);
+	}
+
 
 }

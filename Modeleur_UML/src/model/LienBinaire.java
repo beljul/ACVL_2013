@@ -10,5 +10,4 @@ public abstract class LienBinaire extends LienMultiple {
 		c1.getMultiplicites().add(m1);
 		c2.getMultiplicites().add(m2);
 	}
-
 }

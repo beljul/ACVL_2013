@@ -14,6 +14,8 @@ import view.AddMethodeView;
 import view.DeleteAttributView;
 import view.DeleteMethodeView;
 import view.DiagrammeClassesView;
+import view.SelectAttributView;
+import view.ModifyClassView;
 import view.SelectLinksView;
 import view.SelectMethodeView;
 import model.Classe;
@@ -38,6 +40,12 @@ public class DiagrammeClassesController implements  ActionListener {
 			modele.ajouterClasse();
 		}
 		else if (action == "Modifier classe") {
+			if (vue.getSelection() != null) {
+				new ModifyClassView(vue.getSelection(), modele);
+			}
+			else {
+				vue.showError("Impossible de modifier une classe, classe non sélectionnée.");
+			}
 		}
 		else if (action == "Supprimer classe") {
 			if (vue.getSelection() != null) {
@@ -60,10 +68,19 @@ public class DiagrammeClassesController implements  ActionListener {
 			else {
 				vue.showError("Impossible d'ajouter un attribut, classe non sélectionnée.");
 			}
-				
 		}
 		else if (action == "Modifier attribut") {
-			
+			if (vue.getSelection() != null) {
+				if (vue.getSelection().canHaveAttribut()) {
+					new SelectAttributView((Classe)vue.getSelection(), modele);
+					vue.setSelection(null);
+				}
+				else
+					vue.showError("Impossible de modifier un attribut à une interface.");
+			}
+			else {
+				vue.showError("Impossible de modifier un attribut, classe non sélectionnée.");
+			}
 		}
 		else if (action == "Supprimer attribut(s)") {
 			if (vue.getSelection() != null) {
@@ -77,6 +94,15 @@ public class DiagrammeClassesController implements  ActionListener {
 			}
 			else {
 				vue.showError("Impossible de supprimer un attribut, classe non sélectionnée.");
+			}
+		}
+		else if (action == "Modifier méthode") {
+			if (vue.getSelection() != null) {
+					new SelectMethodeView(vue.getSelection(), modele, false, true);
+					vue.setSelection(null);
+			}
+			else {
+				vue.showError("Impossible de modifier une méthode, classe non sélectionnée.");
 			}
 		}
 		else if (action == "Ajouter méthode") {
@@ -101,7 +127,7 @@ public class DiagrammeClassesController implements  ActionListener {
 		else if (action == "Ajouter paramètre") {
 			if (vue.getSelection() != null) {
 				if (!vue.getSelection().getMethodes().isEmpty()) {
-					new SelectMethodeView(vue.getSelection(), modele, true);
+					new SelectMethodeView(vue.getSelection(), modele, true, false);
 					vue.setSelection(null);
 				}
 				else {
@@ -112,10 +138,24 @@ public class DiagrammeClassesController implements  ActionListener {
 				vue.showError("Impossible d'ajouter un paramètre, classe non sélectionnée.");
 			}
 		}
+		else if (action == "Modifier paramètre") {
+			if (vue.getSelection() != null) {
+				if (!vue.getSelection().getMethodes().isEmpty()) {
+					new SelectMethodeView(vue.getSelection(), modele, true, true);
+					vue.setSelection(null);
+				}
+				else {
+					vue.showError("Impossible de supprimer un paramètre, aucune méthode existante");
+				}
+			}
+			else {
+				vue.showError("Impossible de supprimer un paramètre, classe non sélectionnée.");
+			}
+		}
 		else if (action == "Supprimer paramètre(s)") {
 			if (vue.getSelection() != null) {
 				if (!vue.getSelection().getMethodes().isEmpty()) {
-					new SelectMethodeView(vue.getSelection(), modele, false);
+					new SelectMethodeView(vue.getSelection(), modele, false, false);
 					vue.setSelection(null);
 				}
 				else {
@@ -141,7 +181,6 @@ public class DiagrammeClassesController implements  ActionListener {
 			if(vue.getSelection() != null && vue.getSecondSelection() != null) {
 				if(vue.getSelection().canHaveAttribut() && vue.getSecondSelection().canHaveAttribut())
 					new SelectLinksView(vue.getSelection(), vue.getSecondSelection(), modele);
-//					modele.supprimerLiens(vue.getSelection(), vue.getSecondSelection());
 				else
 					vue.showError("Impossible de supprimer des lien(s), ceci n'est ou ne sont pas des classes.");
 			}

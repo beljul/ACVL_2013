@@ -96,6 +96,10 @@ public class Methode {
 	public void supprimerParametre(Parametre param) {
 		parametres.remove(param);
 	}
+
+	public void modifierParametre(Type type, String text, Parametre param) {
+		param.setIdentifieur(new Identifieur(type, text));	
+	}
 	
 	
 	

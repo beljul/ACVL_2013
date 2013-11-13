@@ -26,6 +26,11 @@ public class Classe extends Classifieur {
 		this.attributs.add(att);
 	}
 
+	public void modifierAttribut(Visibilite visibilite, Type type, String nom, Attribut att) {
+		att.setIdentifieur(new Identifieur(type, nom));
+		att.setVisibilite(visibilite);
+	}
+	
 	public void supprimerAttribut(Attribut attribut) {
 		this.attributs.remove(attribut);
 		--nb;

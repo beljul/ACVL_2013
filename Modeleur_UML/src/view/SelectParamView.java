@@ -7,37 +7,34 @@ import java.util.Set;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JRadioButtonMenuItem;
 
-import model.Classe;
 import model.Classifieur;
 import model.DiagrammeClasses;
 import model.Methode;
+import model.Parametre;
 import controller.ClassifieurController;
 
-public class SelectMethodeView {
+public class SelectParamView {
 	private Classifieur selection;
 	private DiagrammeClasses diagClasses;
 	
-	public SelectMethodeView(Classifieur classifieur, DiagrammeClasses dc, boolean isAdding, boolean isModify) {
+	public SelectParamView(Classifieur classifieur, DiagrammeClasses dc, Methode methode) {
 		this.selection = classifieur;
 		this.diagClasses = dc;
 		ClassifieurController controler = new ClassifieurController(selection.getView(), selection);
 		JPanel panel = new JPanel(new GridLayout(0, 1));
 		ButtonGroup group = new ButtonGroup();
 		Set<JRadioButton> radioButtons = new HashSet<JRadioButton>();
-		for (Methode meth : selection.getMethodes()) {
-			JRadioButton rb = new JRadioButton(meth.toString());
+		for (Parametre param : methode.getParametres()) {
+			JRadioButton rb = new JRadioButton(param.toString());
 			radioButtons.add(rb);
 			group.add(rb);
 			panel.add(rb);
 		}
-		int result = JOptionPane.showConfirmDialog(null, panel, "Sélection d'une méthode",
+		int result = JOptionPane.showConfirmDialog(null, panel, "Sélection d'une paramètre",
 	            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 		if (result == JOptionPane.OK_OPTION) {
 			int i = 0;
@@ -47,18 +44,8 @@ public class SelectMethodeView {
 				if (b.isSelected()) break;
 				i++;
 			}
-			if(isAdding) {
-				if(!isModify)
-					new AjouterParamView(selection, diagClasses, (Methode)selection.getMethodes().toArray()[i]);
-				else
-					new SelectParamView(selection, diagClasses, (Methode)selection.getMethodes().toArray()[i]);
-			}
-			else { // Deleting
-				if(!isModify)
-					new SupprimerParamView(selection, diagClasses, (Methode)selection.getMethodes().toArray()[i]);
-				else
-					new ModifyMethodeView(selection, diagClasses, (Methode)selection.getMethodes().toArray()[i]);
-			}
+			new ModifyParamView(classifieur, dc, methode, (Parametre)methode.getParametres().toArray()[i]);
+			
         } else {
         	// Nothing
         }

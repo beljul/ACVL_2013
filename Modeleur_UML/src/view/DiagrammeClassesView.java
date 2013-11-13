@@ -57,6 +57,7 @@ public class DiagrammeClassesView extends JFrame implements MouseListener, Mouse
 		mnClasse.add(mntmAjouterClasse);
 		JMenuItem mntmModifierClasse = new JMenuItem("Modifier classe");
 		mnClasse.add(mntmModifierClasse);
+		mntmModifierClasse.addActionListener(this.controleur);
 		JMenuItem mntmSupprimerClasse = new JMenuItem("Supprimer classe");
 		mntmSupprimerClasse.addActionListener(this.controleur);
 		mnClasse.add(mntmSupprimerClasse);
