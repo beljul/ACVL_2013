@@ -6,4 +6,9 @@ public class Composition extends LienBinaire {
 		super(c1, c2);
 	}
 
+	@Override
+	public boolean isCompo() {
+		return true;
+	}
+
 }

@@ -85,6 +85,13 @@ public class DiagrammeClasses {
 		
 	}
 
+	public void ajouterLienAgregation(Classifieur selection,
+			Classifieur secondSelection) {
+		Agregation a = new Agregation((Classe)selection, (Classe)secondSelection);
+		liens.add(a);
+		view.ajouterLienAgregation(a);
+	}
+
 	
 	
 }

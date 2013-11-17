@@ -54,9 +54,9 @@ public class Classe extends Classifieur {
 		
 	}
 
-	public void modifierMultiplicite(char borneInf, char borneSup, String role, Multiplicite multiplicite) {
-		multiplicite.setBorneInf(borneInf);
-		multiplicite.setBorneSup(borneSup);
+	public void modifierMultiplicite(String string, String string2, String role, Multiplicite multiplicite) {
+		multiplicite.setBorneInf(string);
+		multiplicite.setBorneSup(string2);
 		multiplicite.setRole(role);
 	}
 

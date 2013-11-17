@@ -18,6 +18,7 @@ import java.util.Set;
 
 import javax.swing.*;
 
+import model.Agregation;
 import model.AssociationSimple;
 import model.Attribut;
 import model.Classe;
@@ -101,11 +102,14 @@ public class DiagrammeClassesView extends JFrame implements MouseListener, Mouse
 		
 		JMenu mnLien = new JMenu("Traitement lien");
 		menuBar.add(mnLien);
-		JMenu mntmLienAssociationSimple = new JMenu("Lien d'association simple");
-		mnLien.add(mntmLienAssociationSimple);
+		JMenu mntmLienBinaire = new JMenu("Liens binaire");
+		mnLien.add(mntmLienBinaire);
 		JMenuItem mntmAjouterAssociationSimple = new JMenuItem("Ajouter lien d'association simple");
 		mntmAjouterAssociationSimple.addActionListener(this.controleur);
-		mntmLienAssociationSimple.add(mntmAjouterAssociationSimple);
+		mntmLienBinaire.add(mntmAjouterAssociationSimple);
+		JMenuItem mntmAjouterAgregation = new JMenuItem("Ajouter lien d'agrégation");
+		mntmAjouterAgregation.addActionListener(this.controleur);
+		mntmLienBinaire.add(mntmAjouterAgregation);
 		JMenuItem mntmModifierLien= new JMenuItem("Modifier multiplicités/rôles");
 		mntmModifierLien.addActionListener(this.controleur);
 		mnLien.add(mntmModifierLien);
@@ -141,6 +145,14 @@ public class DiagrammeClassesView extends JFrame implements MouseListener, Mouse
 		frame.setVisible(true);		
 	}
 	
+
+	public void ajouterLienAgregation(Agregation a) {
+		LienAgregationView l = new LienAgregationView(a);
+		a.setView(l);
+		frame.add(l);
+		frame.setVisible(true);
+	}
+	
 	public void supprimerClass(Classifieur classifieur) {
 		frame.remove(classifieur.getView());
 		frame.repaint();
@@ -149,7 +161,10 @@ public class DiagrammeClassesView extends JFrame implements MouseListener, Mouse
 	}
 
 	public void supprimerLien(LienMultiple lien) {
-		frame.remove(lien.getView());
+		if(!lien.isCompo())
+			frame.remove(((AssociationSimple)lien).getView());
+		else
+			frame.remove(((Agregation)lien).getView());
 		frame.repaint();
 		frame.setVisible(true);	
 	}
@@ -299,7 +314,10 @@ public class DiagrammeClassesView extends JFrame implements MouseListener, Mouse
 					for (Multiplicite multi : mult.getLien().getMultiplicites()) {
 						multi.getClasse().getView().getControleur().updateView();
 					}
-					mult.getLien().getView().getControleur().updateView();
+					if(!mult.getLien().isCompo())
+						((AssociationSimple)mult.getLien()).getView().getControleur().updateView();
+					else
+						((Agregation)mult.getLien()).getView().getControleur().updateView();
 				}
 			}
 			selection.getView().getControleur().updateView();
@@ -355,6 +373,8 @@ public class DiagrammeClassesView extends JFrame implements MouseListener, Mouse
 		// TODO Auto-generated method stub
 		
 	}
+
+
 
 	
 }

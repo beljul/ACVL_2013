@@ -5,8 +5,8 @@ import java.awt.Point;
 public class Multiplicite {
 	private Classe classe;
 	private LienMultiple lien;
-	private char borneInf;
-	private char borneSup;
+	private String borneInf;
+	private String borneSup;
 	private String role;
 	private Point pMult;
 	private LinkPosOnClass posLink;
@@ -15,8 +15,8 @@ public class Multiplicite {
 		super();
 		this.classe = classe;
 		this.lien = lien;
-		this.borneInf = '0';
-		this.borneSup = '*';
+		this.borneInf = "0";
+		this.borneSup = "*";
 		this.role = "monRole";
 	}
 
@@ -53,19 +53,19 @@ public class Multiplicite {
 		this.pMult = pMult;
 	}
 	
-	public char getBorneInf() {
+	public String getBorneInf() {
 		return borneInf;
 	}
 
-	public void setBorneInf(char borneInf) {
-		this.borneInf = borneInf;
+	public void setBorneInf(String string) {
+		this.borneInf = string;
 	}
 
-	public char getBorneSup() {
+	public String getBorneSup() {
 		return borneSup;
 	}
 
-	public void setBorneSup(char borneSup) {
+	public void setBorneSup(String borneSup) {
 		this.borneSup = borneSup;
 	}
 

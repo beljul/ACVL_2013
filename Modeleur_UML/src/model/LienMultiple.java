@@ -1,14 +1,17 @@
 package model;
 
+import java.awt.Component;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.swing.JComponent;
+
+import view.LienAgregationView;
 import view.LienAssociationSimpleView;
 
 public abstract class LienMultiple extends Lien {
 	Set<Multiplicite> multiplicites;
 	private String nomRelation;
-	private LienAssociationSimpleView view;
 
 	public LienMultiple(){
 		super();
@@ -24,14 +27,6 @@ public abstract class LienMultiple extends Lien {
 	public Set<Multiplicite> getMultiplicites() {
 		return multiplicites;
 	}
-	
-	public LienAssociationSimpleView getView() {
-		return view;
-	}
-
-	public void setView(LienAssociationSimpleView view) {
-		this.view = view;
-	}
 
 	@Override
 	public String toString() {
@@ -46,5 +41,5 @@ public abstract class LienMultiple extends Lien {
 		return str;
 	}
 	
-	
+	public abstract boolean isCompo ();
 }

@@ -27,10 +27,10 @@ public class ModifyMultiplicites {
 		JPanel panel = new JPanel(new GridLayout(0, 1));
 		
 		panel.add(new JLabel("Modifier la multiplicité de : " + c1.toString() + " : " + m1.toString()));
-		JTextField fieldM11 = new JTextField(Character.toString(m1.getBorneInf()), 1);
+		JTextField fieldM11 = new JTextField(m1.getBorneInf(), 1);
 		panel.add(new JLabel("Modifier la borne inf : "));
 		panel.add(fieldM11);
-		JTextField fieldM12 = new JTextField(Character.toString(m1.getBorneSup()), 1);
+		JTextField fieldM12 = new JTextField(m1.getBorneSup(), 1);
 		panel.add(new JLabel("Modifier la borne sup : "));
 		panel.add(fieldM12);
 		JTextField fieldM13 = new JTextField(m1.getRole());
@@ -38,21 +38,21 @@ public class ModifyMultiplicites {
 		panel.add(fieldM13);
 		
 		panel.add(new JLabel("Modifier la multiplicité de : " + c2.toString() + " : " + m2.toString()));
-		JTextField fieldM21 = new JTextField(Character.toString(m2.getBorneInf()), 1);
+		JTextField fieldM21 = new JTextField(m2.getBorneInf(), 1);
 		panel.add(new JLabel("Modifier la borne inf : "));
 		panel.add(fieldM21);
-		JTextField fieldM22 = new JTextField(Character.toString(m2.getBorneSup()), 1);
+		JTextField fieldM22 = new JTextField(m2.getBorneSup(), 1);
 		panel.add(new JLabel("Modifier la borne sup : "));
 		panel.add(fieldM22);
 		JTextField fieldM23 = new JTextField(m2.getRole());
 		panel.add(new JLabel("Modifier le role : "));
 		panel.add(fieldM23);
 		
-		int result = JOptionPane.showConfirmDialog(null, panel, "Ajouter un attribut",
+		int result = JOptionPane.showConfirmDialog(null, panel, "Modifier multiplicetes/roles",
 	            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 		if (result == JOptionPane.OK_OPTION) {
-			controler1.modifierMultiplicite(fieldM11.getText().charAt(0), fieldM12.getText().charAt(0), fieldM13.getText(), m1);
-			controler2.modifierMultiplicite(fieldM21.getText().charAt(0), fieldM22.getText().charAt(0), fieldM23.getText(), m2);
+			controler1.modifierMultiplicite(fieldM11.getText(), fieldM12.getText(), fieldM13.getText(), m1);
+			controler2.modifierMultiplicite(fieldM21.getText(), fieldM22.getText(), fieldM23.getText(), m2);
         } else {
         	// Nothing
         }
