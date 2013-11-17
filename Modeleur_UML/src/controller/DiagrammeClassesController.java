@@ -16,6 +16,7 @@ import view.DeleteMethodeView;
 import view.DiagrammeClassesView;
 import view.SelectAttributView;
 import view.ModifyClassView;
+import view.SelectLinkView;
 import view.SelectLinksView;
 import view.SelectMethodeView;
 import model.Classe;

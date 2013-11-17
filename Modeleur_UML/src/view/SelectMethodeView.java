@@ -49,13 +49,13 @@ public class SelectMethodeView {
 			}
 			if(isAdding) {
 				if(!isModify)
-					new AjouterParamView(selection, diagClasses, (Methode)selection.getMethodes().toArray()[i]);
+					new AddParamView(selection, diagClasses, (Methode)selection.getMethodes().toArray()[i]);
 				else
 					new SelectParamView(selection, diagClasses, (Methode)selection.getMethodes().toArray()[i]);
 			}
 			else { // Deleting
 				if(!isModify)
-					new SupprimerParamView(selection, diagClasses, (Methode)selection.getMethodes().toArray()[i]);
+					new DeleteParamView(selection, diagClasses, (Methode)selection.getMethodes().toArray()[i]);
 				else
 					new ModifyMethodeView(selection, diagClasses, (Methode)selection.getMethodes().toArray()[i]);
 			}
